@@ -1,36 +1,26 @@
-# Financial-Forecasting-with-ARIMA-Model
-Financial Forecasting - ARIMA Model
+# Time Series forecasting with ARIMA
+This project demonstrates time series forecasting with ARIMA (Autoregressive Integrated Moving Average) using Python. The steps for building the ARIMA model are as follows:
 
-# Introduction
-This code is designed to help forecast future sales data using the ARIMA (AutoRegressive Integrated Moving Average) time series model. It uses the pmdarima library to automatically determine the optimal parameters for the ARIMA model and then fits the model to the provided sales data. Finally, it generates a forecast for future sales data.
+# Step 1: Read the Data
+The first step is to read the historical sales data into a pandas DataFrame. The data is read from a CSV file and parsed as dates, with the date column set as the index.
 
-# Requirements
-To run this code, you need to have the following libraries installed:
+# Step 2: Resample the Data
+The data is resampled to a monthly frequency by aggregating daily sales. This is necessary for ARIMA modeling as the model requires a stationary series.
 
-pandas
-matplotlib
-statsmodels
-pmdarima
-You also need to have a CSV file containing your sales data with the following columns:
+# Step 3: Stationarity Check
+The stationarity of the data is checked using the augmented Dickey-Fuller (ADF) test and seasonal decomposition of time series. The data is found to be seasonal and requires seasonal ARIMA modeling.
 
-Month: the date of each monthly sales data point
-Sales: the sales data for each month
+# Step 4: Train Test Split
+The data is split into training and testing sets for model evaluation. The first 64 months are used for training and the remaining data is used for testing.
 
-# Usage
-Install the required libraries.
-Save your sales data as a CSV file with the correct format.
-Update the path to your CSV file in the sales_data variable.
-Run the code.
-The code will generate two plots:
+# Step 5: Hyperparameters of ARIMA model - p d q
+The hyperparameters for the ARIMA model are selected using three different methods: ACF (Autocorrelation Function) and PACF (Partial Autocorrelation Function) plots, AUTO_ARIMA function, and for loop.
 
-The first plot shows the original sales data over time.
-The second plot shows the original sales data and the forecasted sales data for the next 12 months.
+# Step 6: Build ARIMA model
+The ARIMA model is built using the selected hyperparameters and trained on the training data.
 
-# Output
-The code outputs the following:
+# Step 7: Predict test dataset
+The model is used to forecast sales for the testing period.
 
-A summary of the optimal ARIMA parameters determined by the auto_arima function.
-The forecasted sales data for the next 12 months.
-
-# Disclaimer
-Please note that forecasting future sales data is not an exact science and there are many factors that can affect sales. Therefore, the forecasted sales data should be used as a guide only and not as a guarantee of future sales.
+# Step 8: Model Evaluation
+The model's performance is evaluated by calculating the root mean squared error (RMSE) between the actual and predicted sales. The RMSE is compared to the mean and standard deviation of the testing set. The predictions and actual values are also plotted for visual evaluation.
